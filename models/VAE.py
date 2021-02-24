@@ -51,7 +51,7 @@ class VAEModel(Model):
             "kl_loss": kl_loss,
         }
 
-    def call(self,inputs):
+    def call(self, inputs):
         latent = self.encoder(inputs)
         return self.decoder(latent)
 
@@ -125,16 +125,15 @@ class VariationalAutoencoder():
         x = Flatten()(x)
         self.mu = Dense(self.z_dim, name='mu')(x)
         self.log_var = Dense(self.z_dim, name='log_var')(x)
-
         self.z = Sampling(name='encoder_output')([self.mu, self.log_var])
-
+ 
         self.encoder = Model(encoder_input, [self.mu, self.log_var, self.z], name = 'encoder')
         
         
 
         ### THE DECODER
 
-        decoder_input = Input(shape=(self.z_dim,), name='decoder_input')
+        decoder_input = Input(shape=(self.z_dim, ), name='decoder_input')
 
         x = Dense(np.prod(shape_before_flattening))(decoder_input)
         x = Reshape(shape_before_flattening)(x)
