@@ -199,7 +199,7 @@ class VariationalAutoencoder():
                 ], f)
 
         self.plot_model(folder)
-
+        
 
     def load_weights(self, filepath):
         self.model.load_weights(filepath)
